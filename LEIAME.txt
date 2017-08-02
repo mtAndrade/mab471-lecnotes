@@ -1,0 +1,11 @@
+Para compilar um arquivo fonte (extensão .prg)
+é só selecioná-lo no Eclipse e clicar em "Run".
+
+Para compilar um arquivo .jasmin:
+
+  java -jar jasmin.jar prog1.jasmin
+    
+Para executar o .class resultante:
+  
+  java prog1
+ 
