@@ -1,0 +1,15 @@
+Para compilar um arquivo fonte (extensão .prg)
+modifique a função main em driver.kt indicando
+o caminho do arquivo, ou puxe o caminho do
+arquivo do vetor de argumentos de linha
+de comando e rode o programa a partir da linha
+de comando.
+
+Para compilar um arquivo .jasmin na linha de comando:
+
+  java -jar jasmin.jar prog1.jasmin
+    
+Para executar o .class resultante na linha de comando:
+  
+  java prog1
+ 
