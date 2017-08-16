@@ -34,12 +34,12 @@ public class Scanner {
    * Translates characters to character classes
    */
   private static final String ZZ_CMAP_PACKED = 
-    "\11\0\1\6\1\3\1\5\1\5\1\4\22\0\1\6\7\0\1\16"+
-    "\1\16\1\2\1\16\1\0\1\16\1\0\1\1\12\7\1\0\1\16"+
-    "\1\0\1\16\3\0\10\15\1\12\4\15\1\13\1\15\1\10\1\15"+
-    "\1\11\1\15\1\14\6\15\4\0\1\15\1\0\10\15\1\12\4\15"+
-    "\1\13\1\15\1\10\1\15\1\11\1\15\1\14\6\15\12\0\1\5"+
-    "\u1fa2\0\1\5\1\5\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
+    "\11\0\1\5\1\3\1\4\1\4\1\3\22\0\1\5\7\0\1\15"+
+    "\1\15\1\2\1\15\1\0\1\15\1\0\1\1\12\6\1\0\1\15"+
+    "\1\0\1\15\3\0\10\14\1\11\4\14\1\12\1\14\1\7\1\14"+
+    "\1\10\1\14\1\13\6\14\4\0\1\14\1\0\10\14\1\11\4\14"+
+    "\1\12\1\14\1\7\1\14\1\10\1\14\1\13\6\14\12\0\1\4"+
+    "\u1fa2\0\1\4\1\4\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\uffff\0\udfe6\0";
 
   /** 
    * Translates characters to character classes
@@ -81,9 +81,9 @@ public class Scanner {
   private static final int [] ZZ_ROWMAP = zzUnpackRowMap();
 
   private static final String ZZ_ROWMAP_PACKED_0 =
-    "\0\0\0\17\0\36\0\55\0\36\0\74\0\113\0\132"+
-    "\0\36\0\151\0\170\0\207\0\36\0\226\0\36\0\36"+
-    "\0\245\0\264\0\132";
+    "\0\0\0\16\0\34\0\52\0\34\0\70\0\106\0\124"+
+    "\0\34\0\142\0\160\0\176\0\34\0\214\0\34\0\34"+
+    "\0\232\0\250\0\124";
 
   private static int [] zzUnpackRowMap() {
     int [] result = new int[19];
@@ -109,15 +109,15 @@ public class Scanner {
   private static final int [] ZZ_TRANS = zzUnpackTrans();
 
   private static final String ZZ_TRANS_PACKED_0 =
-    "\1\3\1\4\1\3\2\5\1\0\1\5\1\6\1\7"+
-    "\5\10\1\11\1\5\1\12\1\13\1\5\2\0\11\5"+
-    "\20\0\1\14\1\15\23\0\1\6\16\0\2\10\1\16"+
-    "\4\10\10\0\7\10\3\0\1\17\15\0\1\20\15\0"+
-    "\3\14\3\0\11\14\7\0\3\10\1\21\3\10\10\0"+
-    "\4\10\1\22\2\10\10\0\5\10\1\23\1\10\1\0";
+    "\1\3\1\4\1\3\1\5\1\0\1\5\1\6\1\7"+
+    "\5\10\1\11\1\5\1\12\1\13\13\5\17\0\1\14"+
+    "\1\15\21\0\1\6\15\0\2\10\1\16\4\10\7\0"+
+    "\7\10\3\0\1\17\14\0\1\20\14\0\3\14\2\0"+
+    "\11\14\6\0\3\10\1\21\3\10\7\0\4\10\1\22"+
+    "\2\10\7\0\5\10\1\23\1\10\1\0";
 
   private static int [] zzUnpackTrans() {
-    int [] result = new int[195];
+    int [] result = new int[182];
     int offset = 0;
     offset = zzUnpackTrans(ZZ_TRANS_PACKED_0, offset, result);
     return result;
@@ -601,7 +601,7 @@ public class Scanner {
       if (zzInput == YYEOF && zzStartRead == zzCurrentPos) {
         zzAtEOF = true;
               {
-                return new Token(0, "<<EOF>>", yyline);
+                return new Token(Token.EOF, "<<EOF>>", yyline);
               }
       }
       else {
@@ -615,11 +615,11 @@ public class Scanner {
             }
           case 11: break;
           case 3: 
-            { return new Token(1, yytext(), yyline);
+            { return new Token(Token.NUM, yytext(), yyline);
             }
           case 12: break;
           case 4: 
-            { return new Token(2, yytext(), yyline);
+            { return new Token(Token.ID, yytext(), yyline);
             }
           case 13: break;
           case 5: 
@@ -640,7 +640,7 @@ public class Scanner {
             }
           case 17: break;
           case 9: 
-            { return new Token(3, yytext(), yyline);
+            { return new Token(Token.PRINT, yytext(), yyline);
             }
           case 18: break;
           default:

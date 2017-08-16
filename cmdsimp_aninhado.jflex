@@ -21,7 +21,7 @@ package cmdsimp;
    "*/"        { nivel--;
                  if(nivel == 0) yybegin(YYINITIAL);
                }
-   .|[\n]       {}
+   [^]       {}
 }
 
 <YYINITIAL> {
@@ -32,18 +32,18 @@ package cmdsimp;
 
 [ \n\r\t]    { } // ignore espaços em branco
 
-[0-9]+  { return new Token(1, yytext(), yyline); }
+[0-9]+  { return new Token(Token.NUM, yytext(), yyline); }
 
-[pP][rR][iI][nN][tT]    { return new Token(3, yytext(), yyline); }
+[pP][rR][iI][nN][tT]    { return new Token(Token.PRINT, yytext(), yyline); }
 
-[a-zA-Z_][a-zA-Z0-9_]*    { return new Token(2, yytext(), yyline); }
+[a-zA-Z_][a-zA-Z0-9_]*    { return new Token(Token.ID, yytext(), yyline); }
 
 "+"|[-]|;|[(]|[)]|[=] {
    return new Token(yytext().charAt(0), yytext(), yyline); }
 
 }
 
-<<EOF>>    { return new Token(0, "<<EOF>>", yyline); }
+<<EOF>>    { return new Token(Token.EOF, "<<EOF>>", yyline); }
 
 .          { throw new RuntimeException("caractere inválido "+yytext()); }
 

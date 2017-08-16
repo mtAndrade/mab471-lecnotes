@@ -2,10 +2,10 @@ package cmdsimp
 
 data class Token(val tipo: Int, val lexeme: String, val lin: Int) {
     companion object {
-        val EOF = 0
-        val NUM = 1
-        val ID = 2
-        val PRINT = 3
+        const val EOF = 0
+        const val NUM = 1
+        const val ID = 2
+        const val PRINT = 3
     }
 }
 
