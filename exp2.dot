@@ -1,0 +1,10 @@
+digraph tree {
+0 [label="E",shape=box];0->1;
+1 [label="T",shape=box];1->2;
+2 [label="num",shape=box];0->3;
+3 [label="+",shape=box];0->4;
+4 [label="T",shape=box];4->5;
+5 [label="num",shape=box];0->6;
+6 [label="+",shape=box];0->7;
+7 [label="T",shape=box];7->8;
+8 [label="num",shape=box];}
