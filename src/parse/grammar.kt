@@ -1,9 +1,9 @@
 package parse
 
-import java.util.*
+import java.util.Stack
 
 data class Rule(val head: String, val b: String) {
-    val body = b.split(Regex("[ ]+"))
+    val body = b.split(Regex("[ ]+")).filter { s -> !s.isBlank() }
     val firstPlus = mutableSetOf<String>()
 
     fun canDerive(term: String): Boolean {
@@ -160,11 +160,13 @@ class Grammar {
     }
 
     fun isNullable(terms: List<String>): Boolean {
-        return terms.any { nullable.contains(it) }
+        return terms.isEmpty() || (nullable.contains(terms.first()) &&
+                isNullable(terms.drop(1)))
     }
 
     fun isNullable(terms: List<String>, i: Int, j: Int): Boolean {
-        return i > j || (i..j).any { nullable.contains(terms[it]) }
+        return i > j || (nullable.contains(terms[i]) &&
+                isNullable(terms, i+1, j))
     }
 
     fun computeSets() {
@@ -227,7 +229,7 @@ class Grammar {
         val res = mutableSetOf<String>()
         for (term in terms) {
             res.addAll(FIRST[term]!!)
-            if (!nullable.contains(term))
+            if (!(nullable.contains(term)))
                 break
         }
         if (isNullable(terms))

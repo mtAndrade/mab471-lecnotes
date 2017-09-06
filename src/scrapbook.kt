@@ -12,6 +12,8 @@ object scrapbook {
         g.rules("EXP", "num") // 5
         g.rules("EXP", "( EXP + EXP )") // 6
         g.computeSets()
+        println(g)
+        println(g.ll1)
         g.treeDerive("PROG", 0, 2, 6, 4, 5, 0, 3, 5, 1).printDot("cmdsimp1.dot")
     }
 
@@ -40,6 +42,9 @@ object scrapbook {
         g.treeDerive("S", 0, 1, 1, 2, 4, 4, 4, 3, 1, 4, 4).printDot("exp_na_aula_1.dot")
         print(g.derivation("S", 0, 2, 4, 1, 1, 4, 4, 3, 1, 4, 4))
         g.treeDerive("S", 0, 2, 4, 1, 1, 4, 4, 3, 1, 4, 4).printDot("exp_na_aula_1.dot")
+        g.computeSets()
+        println(g)
+        println(g.ll1)
     }
 
     @Test
@@ -102,6 +107,40 @@ object scrapbook {
         g.rules("CE", "outros") // 5
         println(g.leftDerive("S", 0, 1, 2, 5, 3))
         g.treeDerive("S", 0, 1, 2, 5, 3).printDot("dangif_aula_semamb.dot")
+    }
+
+    @Test
+    fun tinytest() {
+        val g = parse.Grammar()
+        g.rules("S", "CMDS")
+        g.rules("CMDS", "CMD CMDR")
+        g.rules("CMDR", "; CMD CMDR")
+        g.rules("CMDR", "")
+        g.rules("CMD", "if EXP then CMDS ELSEP end")
+        g.rules("ELSEP", "else CMDS")
+        g.rules("ELSEP", "")
+        g.rules("CMD", "repeat CMDS until EXP")
+        g.rules("CMD", "write EXP")
+        g.rules("CMD", "read ID")
+        g.rules("CMD", "id := EXP")
+        g.rules("EXP", "SEXP EXPR")
+        g.rules("EXPR", "< SEXP EXPR")
+        g.rules("EXPR", "= SEXP EXPR")
+        g.rules("EXPR", "")
+        g.rules("SEXP", "TERMO SEXPR")
+        g.rules("SEXPR", "+ TERMO SEXPR")
+        g.rules("SEXPR", "- TERMO SEXPR")
+        g.rules("SEXPR", "")
+        g.rules("TERMO", "FATOR TERMOR")
+        g.rules("TERMOR", "* FATOR TERMOR")
+        g.rules("TERMOR", "/ FATOR TERMOR")
+        g.rules("TERMOR", "")
+        g.rules("FATOR", "( EXP )")
+        g.rules("FATOR", "num")
+        g.rules("FATOR", "id")
+        g.computeSets()
+        println(g)
+        println(g.ll1)
     }
 
 }

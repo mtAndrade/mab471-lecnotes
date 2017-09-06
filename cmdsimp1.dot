@@ -18,5 +18,4 @@ digraph tree {
 16 [label="EXP",shape=box];16->17;
 17 [label="num",shape=box];13->18;
 18 [label=";",shape=box];13->19;
-19 [label="PROG",shape=box];19->20;
-20 [label="",shape=box];}
+19 [label="PROG",shape=box];}
