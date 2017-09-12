@@ -33,6 +33,7 @@ class Grammar {
     val FOLLOW = mutableMapOf<String, MutableSet<String>>()
     val nullable = mutableSetOf<String>()
     var ll1: Boolean = false
+    val ll1table = mutableMapOf<String, MutableMap<String,Rule>>()
 
     fun rules(head: String, body: String) {
         lexicon.add(head)
@@ -223,6 +224,23 @@ class Grammar {
                 }
             }
         }
+        if(ll1) {
+            for(v in variables) {
+                val linha = mutableMapOf<String, Rule>()
+                ll1table[v] = linha
+                for(t in terminals) {
+                    for(r in rules) {
+                        if(r.head == v && r.firstPlus.contains(t))
+                            linha[t] = r
+                    }
+                }
+                for(r in rules) {
+                    if(r.head == v &&
+                            r.firstPlus.contains("<<EOF>>"))
+                        linha["<<EOF>>"] = r
+                }
+            }
+        }
     }
 
     fun firstPlus(head: String, terms: List<String>): Set<String> {
@@ -262,25 +280,17 @@ class Grammar {
         while (!nextFocus.isEmpty() || pos < input.size) {
             val focus = nextFocus.pop()
             if (variables.contains(focus.term)) { // foco é NT
-                var error = true
-                for (r in rules) {
-                    if (r.head == focus.term) {
-                        val lookAhead =
-                                if (pos < input.size) input[pos]
-                                else "<<EOF>>"
-                        if (r.firstPlus!!.contains(lookAhead)) {
-                            // escolho a regra r
-                            error = false
-                            for (term in r.body) {
-                                focus.child(term)
-                            }
-                            nextFocus.addAll(focus.children.reversed())
-                            break
-                        }
-                    }
-                }
-                if (error)
+                val linha = ll1table[focus.term]!!
+                val lookAhead =
+                        if (pos < input.size) input[pos]
+                        else "<<EOF>>"
+                val r = linha.getOrElse(lookAhead, {
                     throw RuntimeException("erro de sintaxe em " + pos)
+                })
+                for (term in r.body) {
+                  focus.child(term)
+                }
+                nextFocus.addAll(focus.children.reversed())
             } else { // foco é terminal
                 val lookAhead = if (pos < input.size) input[pos] else "<<EOF>>"
                 if (focus.term == lookAhead) {
