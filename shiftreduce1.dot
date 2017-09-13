@@ -1,0 +1,23 @@
+digraph tree {
+0 [label="S",shape=box];0->1;
+1 [label="E",shape=box];1->2;
+2 [label="E",shape=box];2->3;
+3 [label="T",shape=box];3->4;
+4 [label="F",shape=box];4->5;
+5 [label="-",shape=box];4->6;
+6 [label="F",shape=box];6->7;
+7 [label="(",shape=box];6->8;
+8 [label="E",shape=box];8->9;
+9 [label="E",shape=box];9->10;
+10 [label="T",shape=box];10->11;
+11 [label="F",shape=box];11->12;
+12 [label="num",shape=box];8->13;
+13 [label="+",shape=box];8->14;
+14 [label="T",shape=box];14->15;
+15 [label="F",shape=box];15->16;
+16 [label="num",shape=box];6->17;
+17 [label=")",shape=box];1->18;
+18 [label="-",shape=box];1->19;
+19 [label="T",shape=box];19->20;
+20 [label="F",shape=box];20->21;
+21 [label="num",shape=box];}

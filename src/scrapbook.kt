@@ -1,0 +1,43 @@
+import org.testng.annotations.Test
+
+object scrapbook {
+    @Test
+    fun test1() {
+        val g = parse.Grammar()
+        g.rules("S", "E")
+        g.rules("E", "E + T")
+        g.rules("E", "E - T")
+        g.rules("E", "T")
+        g.rules("T", "T * F")
+        g.rules("T", "F")
+        g.rules("F", "- F")
+        g.rules("F", "num")
+        g.rules("F", "( E )")
+        val sr = parse.ShiftReduce(g)
+        sr.input("- ( num + num ) - num")
+        sr.shift()
+        sr.shift()
+        sr.shift()
+        sr.reduce(7)
+        sr.reduce(5)
+        sr.reduce(3)
+        sr.shift()
+        sr.shift()
+        sr.reduce(7)
+        sr.reduce(5)
+        sr.reduce(1)
+        sr.shift()
+        sr.reduce(8)
+        sr.reduce(6)
+        sr.reduce(5)
+        sr.reduce(3)
+        sr.shift()
+        sr.shift()
+        sr.reduce(7)
+        sr.reduce(5)
+        sr.reduce(2)
+        sr.reduce(0)
+        val t = sr.accept()
+        t.printDot("shiftreduce1.dot")
+    }
+}
