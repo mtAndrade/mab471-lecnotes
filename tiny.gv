@@ -1,0 +1,199 @@
+digraph DFA {
+21 [label="0\nS-> . CMDS\nCMDS-> . CMDS ; CMD\nCMDS-> . CMD\nCMD-> . if EXP then CMDS end\nCMD-> . if EXP then CMDS else CMDS end\nCMD-> . repeat CMDS until EXP\nCMD-> . write EXP\nCMD-> . read id\nCMD-> . id := EXP\n",shape=box];
+27 [label="1\nCMD-> read . id\n",shape=box];
+22 [label="2\nS-> CMDS .\nCMDS-> CMDS . ; CMD\n",shape=box];
+25 [label="3\nCMD-> repeat . CMDS until EXP\nCMDS-> . CMDS ; CMD\nCMDS-> . CMD\nCMD-> . if EXP then CMDS end\nCMD-> . if EXP then CMDS else CMDS end\nCMD-> . repeat CMDS until EXP\nCMD-> . write EXP\nCMD-> . read id\nCMD-> . id := EXP\n",shape=box];
+23 [label="4\nCMDS-> CMD .\n",shape=box];
+28 [label="5\nCMD-> id . := EXP\n",shape=box];
+24 [label="6\nCMD-> if . EXP then CMDS end\nCMD-> if . EXP then CMDS else CMDS end\nEXP-> . EXP < EXP\nEXP-> . EXP = EXP\nEXP-> . EXP + EXP\nEXP-> . EXP - EXP\nEXP-> . EXP * EXP\nEXP-> . EXP / EXP\nEXP-> . ( EXP )\nEXP-> . num\nEXP-> . id\n",shape=box];
+26 [label="7\nCMD-> write . EXP\nEXP-> . EXP < EXP\nEXP-> . EXP = EXP\nEXP-> . EXP + EXP\nEXP-> . EXP - EXP\nEXP-> . EXP * EXP\nEXP-> . EXP / EXP\nEXP-> . ( EXP )\nEXP-> . num\nEXP-> . id\n",shape=box];
+31 [label="8\nEXP-> num .\n",shape=box];
+30 [label="9\nEXP-> ( . EXP )\nEXP-> . EXP < EXP\nEXP-> . EXP = EXP\nEXP-> . EXP + EXP\nEXP-> . EXP - EXP\nEXP-> . EXP * EXP\nEXP-> . EXP / EXP\nEXP-> . ( EXP )\nEXP-> . num\nEXP-> . id\n",shape=box];
+32 [label="10\nEXP-> id .\n",shape=box];
+29 [label="11\nCMD-> write EXP .\nEXP-> EXP . < EXP\nEXP-> EXP . = EXP\nEXP-> EXP . + EXP\nEXP-> EXP . - EXP\nEXP-> EXP . * EXP\nEXP-> EXP . / EXP\n",shape=box];
+37 [label="12\nEXP-> EXP * . EXP\nEXP-> . EXP < EXP\nEXP-> . EXP = EXP\nEXP-> . EXP + EXP\nEXP-> . EXP - EXP\nEXP-> . EXP * EXP\nEXP-> . EXP / EXP\nEXP-> . ( EXP )\nEXP-> . num\nEXP-> . id\n",shape=box];
+35 [label="13\nEXP-> EXP + . EXP\nEXP-> . EXP < EXP\nEXP-> . EXP = EXP\nEXP-> . EXP + EXP\nEXP-> . EXP - EXP\nEXP-> . EXP * EXP\nEXP-> . EXP / EXP\nEXP-> . ( EXP )\nEXP-> . num\nEXP-> . id\n",shape=box];
+33 [label="14\nEXP-> EXP < . EXP\nEXP-> . EXP < EXP\nEXP-> . EXP = EXP\nEXP-> . EXP + EXP\nEXP-> . EXP - EXP\nEXP-> . EXP * EXP\nEXP-> . EXP / EXP\nEXP-> . ( EXP )\nEXP-> . num\nEXP-> . id\n",shape=box];
+34 [label="15\nEXP-> EXP = . EXP\nEXP-> . EXP < EXP\nEXP-> . EXP = EXP\nEXP-> . EXP + EXP\nEXP-> . EXP - EXP\nEXP-> . EXP * EXP\nEXP-> . EXP / EXP\nEXP-> . ( EXP )\nEXP-> . num\nEXP-> . id\n",shape=box];
+36 [label="16\nEXP-> EXP - . EXP\nEXP-> . EXP < EXP\nEXP-> . EXP = EXP\nEXP-> . EXP + EXP\nEXP-> . EXP - EXP\nEXP-> . EXP * EXP\nEXP-> . EXP / EXP\nEXP-> . ( EXP )\nEXP-> . num\nEXP-> . id\n",shape=box];
+38 [label="17\nEXP-> EXP / . EXP\nEXP-> . EXP < EXP\nEXP-> . EXP = EXP\nEXP-> . EXP + EXP\nEXP-> . EXP - EXP\nEXP-> . EXP * EXP\nEXP-> . EXP / EXP\nEXP-> . ( EXP )\nEXP-> . num\nEXP-> . id\n",shape=box];
+39 [label="18\nEXP-> EXP / EXP .\nEXP-> EXP . < EXP\nEXP-> EXP . = EXP\nEXP-> EXP . + EXP\nEXP-> EXP . - EXP\nEXP-> EXP . * EXP\nEXP-> EXP . / EXP\n",shape=box];
+49 [label="19\nEXP-> EXP - EXP .\nEXP-> EXP . < EXP\nEXP-> EXP . = EXP\nEXP-> EXP . + EXP\nEXP-> EXP . - EXP\nEXP-> EXP . * EXP\nEXP-> EXP . / EXP\n",shape=box];
+59 [label="20\nEXP-> EXP = EXP .\nEXP-> EXP . < EXP\nEXP-> EXP . = EXP\nEXP-> EXP . + EXP\nEXP-> EXP . - EXP\nEXP-> EXP . * EXP\nEXP-> EXP . / EXP\n",shape=box];
+69 [label="21\nEXP-> EXP < EXP .\nEXP-> EXP . < EXP\nEXP-> EXP . = EXP\nEXP-> EXP . + EXP\nEXP-> EXP . - EXP\nEXP-> EXP . * EXP\nEXP-> EXP . / EXP\n",shape=box];
+79 [label="22\nEXP-> EXP + EXP .\nEXP-> EXP . < EXP\nEXP-> EXP . = EXP\nEXP-> EXP . + EXP\nEXP-> EXP . - EXP\nEXP-> EXP . * EXP\nEXP-> EXP . / EXP\n",shape=box];
+89 [label="23\nEXP-> EXP * EXP .\nEXP-> EXP . < EXP\nEXP-> EXP . = EXP\nEXP-> EXP . + EXP\nEXP-> EXP . - EXP\nEXP-> EXP . * EXP\nEXP-> EXP . / EXP\n",shape=box];
+99 [label="24\nEXP-> ( EXP . )\nEXP-> EXP . < EXP\nEXP-> EXP . = EXP\nEXP-> EXP . + EXP\nEXP-> EXP . - EXP\nEXP-> EXP . * EXP\nEXP-> EXP . / EXP\n",shape=box];
+103 [label="25\nEXP-> ( EXP ) .\n",shape=box];
+110 [label="26\nCMD-> if EXP . then CMDS end\nCMD-> if EXP . then CMDS else CMDS end\nEXP-> EXP . < EXP\nEXP-> EXP . = EXP\nEXP-> EXP . + EXP\nEXP-> EXP . - EXP\nEXP-> EXP . * EXP\nEXP-> EXP . / EXP\n",shape=box];
+114 [label="27\nCMD-> if EXP then . CMDS end\nCMD-> if EXP then . CMDS else CMDS end\nCMDS-> . CMDS ; CMD\nCMDS-> . CMD\nCMD-> . if EXP then CMDS end\nCMD-> . if EXP then CMDS else CMDS end\nCMD-> . repeat CMDS until EXP\nCMD-> . write EXP\nCMD-> . read id\nCMD-> . id := EXP\n",shape=box];
+121 [label="28\nCMD-> if EXP then CMDS . end\nCMD-> if EXP then CMDS . else CMDS end\nCMDS-> CMDS . ; CMD\n",shape=box];
+129 [label="29\nCMD-> if EXP then CMDS else . CMDS end\nCMDS-> . CMDS ; CMD\nCMDS-> . CMD\nCMD-> . if EXP then CMDS end\nCMD-> . if EXP then CMDS else CMDS end\nCMD-> . repeat CMDS until EXP\nCMD-> . write EXP\nCMD-> . read id\nCMD-> . id := EXP\n",shape=box];
+128 [label="30\nCMD-> if EXP then CMDS end .\n",shape=box];
+130 [label="31\nCMDS-> CMDS ; . CMD\nCMD-> . if EXP then CMDS end\nCMD-> . if EXP then CMDS else CMDS end\nCMD-> . repeat CMDS until EXP\nCMD-> . write EXP\nCMD-> . read id\nCMD-> . id := EXP\n",shape=box];
+131 [label="32\nCMDS-> CMDS ; CMD .\n",shape=box];
+137 [label="33\nCMD-> if EXP then CMDS else CMDS . end\nCMDS-> CMDS . ; CMD\n",shape=box];
+144 [label="34\nCMD-> if EXP then CMDS else CMDS end .\n",shape=box];
+146 [label="35\nCMD-> id := . EXP\nEXP-> . EXP < EXP\nEXP-> . EXP = EXP\nEXP-> . EXP + EXP\nEXP-> . EXP - EXP\nEXP-> . EXP * EXP\nEXP-> . EXP / EXP\nEXP-> . ( EXP )\nEXP-> . num\nEXP-> . id\n",shape=box];
+147 [label="36\nCMD-> id := EXP .\nEXP-> EXP . < EXP\nEXP-> EXP . = EXP\nEXP-> EXP . + EXP\nEXP-> EXP . - EXP\nEXP-> EXP . * EXP\nEXP-> EXP . / EXP\n",shape=box];
+157 [label="37\nCMD-> repeat CMDS . until EXP\nCMDS-> CMDS . ; CMD\n",shape=box];
+164 [label="38\nCMD-> repeat CMDS until . EXP\nEXP-> . EXP < EXP\nEXP-> . EXP = EXP\nEXP-> . EXP + EXP\nEXP-> . EXP - EXP\nEXP-> . EXP * EXP\nEXP-> . EXP / EXP\nEXP-> . ( EXP )\nEXP-> . num\nEXP-> . id\n",shape=box];
+166 [label="39\nCMD-> repeat CMDS until EXP .\nEXP-> EXP . < EXP\nEXP-> EXP . = EXP\nEXP-> EXP . + EXP\nEXP-> EXP . - EXP\nEXP-> EXP . * EXP\nEXP-> EXP . / EXP\n",shape=box];
+177 [label="40\nCMD-> read id .\n",shape=box];
+ 21 -> 27 [label="read"]
+ 21 -> 22 [label="CMDS"]
+ 21 -> 25 [label="repeat"]
+ 21 -> 23 [label="CMD"]
+ 21 -> 28 [label="id"]
+ 21 -> 24 [label="if"]
+ 21 -> 26 [label="write"]
+ 27 -> 177 [label="id"]
+ 22 -> 130 [label=";"]
+ 25 -> 27 [label="read"]
+ 25 -> 157 [label="CMDS"]
+ 25 -> 25 [label="repeat"]
+ 25 -> 23 [label="CMD"]
+ 25 -> 28 [label="id"]
+ 25 -> 24 [label="if"]
+ 25 -> 26 [label="write"]
+ 28 -> 146 [label=":="]
+ 24 -> 31 [label="num"]
+ 24 -> 30 [label="("]
+ 24 -> 32 [label="id"]
+ 24 -> 110 [label="EXP"]
+ 26 -> 31 [label="num"]
+ 26 -> 30 [label="("]
+ 26 -> 32 [label="id"]
+ 26 -> 29 [label="EXP"]
+ 30 -> 31 [label="num"]
+ 30 -> 30 [label="("]
+ 30 -> 32 [label="id"]
+ 30 -> 99 [label="EXP"]
+ 29 -> 37 [label="*"]
+ 29 -> 35 [label="+"]
+ 29 -> 33 [label="<"]
+ 29 -> 34 [label="="]
+ 29 -> 36 [label="-"]
+ 29 -> 38 [label="/"]
+ 37 -> 31 [label="num"]
+ 37 -> 30 [label="("]
+ 37 -> 32 [label="id"]
+ 37 -> 89 [label="EXP"]
+ 35 -> 31 [label="num"]
+ 35 -> 30 [label="("]
+ 35 -> 32 [label="id"]
+ 35 -> 79 [label="EXP"]
+ 33 -> 31 [label="num"]
+ 33 -> 30 [label="("]
+ 33 -> 32 [label="id"]
+ 33 -> 69 [label="EXP"]
+ 34 -> 31 [label="num"]
+ 34 -> 30 [label="("]
+ 34 -> 32 [label="id"]
+ 34 -> 59 [label="EXP"]
+ 36 -> 31 [label="num"]
+ 36 -> 30 [label="("]
+ 36 -> 32 [label="id"]
+ 36 -> 49 [label="EXP"]
+ 38 -> 31 [label="num"]
+ 38 -> 30 [label="("]
+ 38 -> 32 [label="id"]
+ 38 -> 39 [label="EXP"]
+ 39 -> 37 [label="*"]
+ 39 -> 35 [label="+"]
+ 39 -> 33 [label="<"]
+ 39 -> 34 [label="="]
+ 39 -> 36 [label="-"]
+ 39 -> 38 [label="/"]
+ 49 -> 37 [label="*"]
+ 49 -> 35 [label="+"]
+ 49 -> 33 [label="<"]
+ 49 -> 34 [label="="]
+ 49 -> 36 [label="-"]
+ 49 -> 38 [label="/"]
+ 59 -> 37 [label="*"]
+ 59 -> 35 [label="+"]
+ 59 -> 33 [label="<"]
+ 59 -> 34 [label="="]
+ 59 -> 36 [label="-"]
+ 59 -> 38 [label="/"]
+ 69 -> 37 [label="*"]
+ 69 -> 35 [label="+"]
+ 69 -> 33 [label="<"]
+ 69 -> 34 [label="="]
+ 69 -> 36 [label="-"]
+ 69 -> 38 [label="/"]
+ 79 -> 37 [label="*"]
+ 79 -> 35 [label="+"]
+ 79 -> 33 [label="<"]
+ 79 -> 34 [label="="]
+ 79 -> 36 [label="-"]
+ 79 -> 38 [label="/"]
+ 89 -> 37 [label="*"]
+ 89 -> 35 [label="+"]
+ 89 -> 33 [label="<"]
+ 89 -> 34 [label="="]
+ 89 -> 36 [label="-"]
+ 89 -> 38 [label="/"]
+ 99 -> 103 [label=")"]
+ 99 -> 37 [label="*"]
+ 99 -> 35 [label="+"]
+ 99 -> 33 [label="<"]
+ 99 -> 34 [label="="]
+ 99 -> 36 [label="-"]
+ 99 -> 38 [label="/"]
+ 110 -> 37 [label="*"]
+ 110 -> 114 [label="then"]
+ 110 -> 35 [label="+"]
+ 110 -> 33 [label="<"]
+ 110 -> 34 [label="="]
+ 110 -> 36 [label="-"]
+ 110 -> 38 [label="/"]
+ 114 -> 27 [label="read"]
+ 114 -> 121 [label="CMDS"]
+ 114 -> 25 [label="repeat"]
+ 114 -> 23 [label="CMD"]
+ 114 -> 28 [label="id"]
+ 114 -> 24 [label="if"]
+ 114 -> 26 [label="write"]
+ 121 -> 129 [label="else"]
+ 121 -> 128 [label="end"]
+ 121 -> 130 [label=";"]
+ 129 -> 27 [label="read"]
+ 129 -> 137 [label="CMDS"]
+ 129 -> 25 [label="repeat"]
+ 129 -> 23 [label="CMD"]
+ 129 -> 28 [label="id"]
+ 129 -> 24 [label="if"]
+ 129 -> 26 [label="write"]
+ 130 -> 27 [label="read"]
+ 130 -> 25 [label="repeat"]
+ 130 -> 131 [label="CMD"]
+ 130 -> 28 [label="id"]
+ 130 -> 24 [label="if"]
+ 130 -> 26 [label="write"]
+ 137 -> 144 [label="end"]
+ 137 -> 130 [label=";"]
+ 146 -> 31 [label="num"]
+ 146 -> 30 [label="("]
+ 146 -> 32 [label="id"]
+ 146 -> 147 [label="EXP"]
+ 147 -> 37 [label="*"]
+ 147 -> 35 [label="+"]
+ 147 -> 33 [label="<"]
+ 147 -> 34 [label="="]
+ 147 -> 36 [label="-"]
+ 147 -> 38 [label="/"]
+ 157 -> 164 [label="until"]
+ 157 -> 130 [label=";"]
+ 164 -> 31 [label="num"]
+ 164 -> 30 [label="("]
+ 164 -> 32 [label="id"]
+ 164 -> 166 [label="EXP"]
+ 166 -> 37 [label="*"]
+ 166 -> 35 [label="+"]
+ 166 -> 33 [label="<"]
+ 166 -> 34 [label="="]
+ 166 -> 36 [label="-"]
+ 166 -> 38 [label="/"]
+}
