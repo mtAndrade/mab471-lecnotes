@@ -25,6 +25,7 @@ object Driver {
         g.rules("EXP", "id")
         g.computeSets()
         val parser = SLRParser(g, "< =", "+ -", "* /")
+        parser.printTable()
         parser.setInput(TINYScanner(FileReader(File(fname))))
         parser.aut.printDot("tiny.dot")
         val out = parser.parse()
