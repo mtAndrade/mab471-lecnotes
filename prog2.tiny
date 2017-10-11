@@ -1,0 +1,12 @@
+read x;
+read y;
+if x < 0 then
+  x := 1
+else
+  x := x * 2
+end;
+repeat
+  y := y * x;
+  x := x - 1
+until x = 0;
+write y

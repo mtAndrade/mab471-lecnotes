@@ -1,0 +1,70 @@
+
+%class TINYParser
+%interface TINYTokens
+
+%token IF THEN END ELSE REPEAT UNTIL ID ATRIB NUM WRITE READ
+
+%next token()
+%get  tipo
+%semantic Tree: node
+
+%left '<' '='
+%left '+' '-'
+%left '*' '/'
+
+%%
+
+s : cmds { out = new Tree("S", $1); $$ = out; }
+  ;
+
+cmds : cmds ';' cmd { $$ = new Tree("CMDS", $1, $2, $3); }
+     | cmd { $$ = new Tree("CMDS", $1); }
+     ;
+
+cmd : IF exp THEN cmds END { $$ = new Tree("CMD", $1, $2, $3, $4, $5); }
+    | IF exp THEN cmds ELSE cmds END { $$ = new Tree("CMD", $1, $2, $3, $4, $5, $6, $7); }
+    | REPEAT cmds UNTIL exp { $$ = new Tree("CMD", $1, $2, $3, $4); }
+    | WRITE exp { $$ = new Tree("CMD", $1, $2); }
+    | READ ID { $$ = new Tree("CMD", $1, $2); }
+    | ID ATRIB exp { $$ = new Tree("CMD", $1, $2, $3); }
+    ;
+
+exp : exp '<' exp { $$ = new Tree("EXP", $1, $2, $3); }
+    | exp '=' exp { $$ = new Tree("EXP", $1, $2, $3); }
+    | exp '+' exp { $$ = new Tree("EXP", $1, $2, $3); }
+    | exp '-' exp { $$ = new Tree("EXP", $1, $2, $3); }
+    | exp '/' exp { $$ = new Tree("EXP", $1, $2, $3); }
+    | exp '*' exp { $$ = new Tree("EXP", $1, $2, $3); }
+    | '(' exp ')' { $$ = new Tree("EXP", $1, $2, $3); }
+    | NUM { $$ = new Tree("EXP", $1); }
+    | ID { $$ = new Tree("EXP", $1); }
+    ;
+
+%%
+
+TINYScanner scan;
+int tipo;
+Tree node;
+
+public Tree out;
+
+public TINYParser(TINYScanner scan) {
+	this.scan = scan;
+	token();
+}
+
+int token() {
+	try {
+		Token tok = scan.token();
+		tipo = tok.getTipo();
+		node = new Tree(tok.getLexeme());
+		return tok.getTipo();
+	} catch(java.io.IOException ioex) {
+		throw new RuntimeException(ioex);
+	}
+}
+
+void yyerror(String err) {
+	throw new RuntimeException(err);	
+}
+
