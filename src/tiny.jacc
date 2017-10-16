@@ -1,0 +1,89 @@
+
+%class TINYParser
+%interface TINYTokens
+
+%{
+import java.util.List;
+import java.util.ArrayList;
+%}
+
+%token <Token> IF THEN END ELSE REPEAT UNTIL ID ATRIB NUM WRITE READ VAR
+%token <Token> '+' '-' '*' '/' '<' '='
+
+%next token()
+%get  tipo
+%semantic Object: node
+
+%left '<' '='
+%left '+' '-'
+%left '*' '/'
+
+%type <Cmd> cmd
+%type <Exp> exp
+%type <List> ids
+%type <Bloco> cmds var
+
+%%
+
+s : cmds { out = new Tiny($1); $$ = out; }
+  ;
+
+var : VAR ids ';' { $$ = new Bloco($2, new ArrayList<Cmd>(), $1.getLin()); }
+    |             { $$ = new Bloco(new ArrayList<String>(), new ArrayList<Cmd>(), 0); }
+    ;
+
+ids : ids ',' ID { $1.add($3.getLexeme()); $$ = $1; }
+    | ID         { List<String> l = new ArrayList<String>(); l.add($1.getLexeme()); $$ = l; }
+    ;
+
+cmds : cmds ';' cmd { $1.add($3); $$ = $1; }
+     | var cmd { $1.add($2); $$ = $1; }
+     ;
+
+cmd : IF exp THEN cmds END { $$ = new If($2, $4, new Bloco(new ArrayList<String>(), new ArrayList<Cmd>(), $3.getLin()), $1.getLin()); }
+    | IF exp THEN cmds ELSE cmds END { $$ = new If($2, $4, $6, $1.getLin()); }
+    | REPEAT cmds UNTIL exp { $$ = new Repeat($2, $4, $3.getLin()); }
+    | WRITE exp { $$ = new Write($2, $1.getLin()); }
+    | READ ID { $$ = new Read($2.getLexeme(), $2.getLin()); }
+    | ID ATRIB exp { $$ = new Atrib($1.getLexeme(), $3, $2.getLin()); }
+    ;
+
+exp : exp '<' exp { $$ = new Menor($1, $3, $2.getLin()); }
+    | exp '=' exp { $$ = new Igual($1, $3, $2.getLin()); }
+    | exp '+' exp { $$ = new Soma($1, $3, $2.getLin()); }
+    | exp '-' exp { $$ = new Sub($1, $3, $2.getLin()); }
+    | exp '/' exp { $$ = new Div($1, $3, $2.getLin()); }
+    | exp '*' exp { $$ = new Mult($1, $3, $2.getLin()); }
+    | '(' exp ')' { $$ = $2; }
+    | NUM { $$ = new Num($1.getLexeme(), $1.getLin()); }
+    | ID { $$ = new Var($1.getLexeme(), $1.getLin()); }
+    ;
+
+%%
+
+TINYScanner scan;
+int tipo;
+Object node;
+
+public Tiny out;
+
+public TINYParser(TINYScanner scan) {
+	this.scan = scan;
+	token();
+}
+
+int token() {
+	try {
+		Token tok = scan.token();
+		tipo = tok.getTipo();
+		node = tok;
+		return tipo;
+	} catch(java.io.IOException ioex) {
+		throw new RuntimeException(ioex);
+	}
+}
+
+void yyerror(String err) {
+	throw new RuntimeException(err);	
+}
+
