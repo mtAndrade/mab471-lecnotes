@@ -1,0 +1,26 @@
+procedure par()
+  if 0 < n then
+    n := n - 1;
+    impar()
+  else
+    res := 1
+  end
+end;
+
+procedure impar()
+  if 0 < n then
+    n := n - 1;
+    par()
+  else
+    res := 0
+  end
+end;
+
+var x, n, res;
+read x;
+n := x;
+par();
+write res;
+n := x;
+impar();
+write res
