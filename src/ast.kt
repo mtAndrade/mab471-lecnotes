@@ -1,79 +1,12 @@
 
-interface Exp {
-    fun escopo(ctx: Map<String, Bloco>,
-               erros: MutableList<String>) {
-        when(this) {
-            is Var -> if(ctx.containsKey(nome)) {
-                escopo = ctx.get(nome)
-            } else {
-                erros.add("variável $nome não definida na linha $lin")
-            }
-            is Soma -> {
-                e1.escopo(ctx, erros)
-                e2.escopo(ctx, erros)
-            }
-            is Sub -> {
-                e1.escopo(ctx, erros)
-                e2.escopo(ctx, erros)
-            }
-            is Mult -> {
-                e1.escopo(ctx, erros)
-                e2.escopo(ctx, erros)
-            }
-            is Div -> {
-                e1.escopo(ctx, erros)
-                e2.escopo(ctx, erros)
-            }
-            is Menor -> {
-                e1.escopo(ctx, erros)
-                e2.escopo(ctx, erros)
-            }
-            is Igual -> {
-                e1.escopo(ctx, erros)
-                e2.escopo(ctx, erros)
-            }
-            is Num -> {}
-        }
-    }
-}
-
-interface Cmd {
-    fun escopo(ctx: Map<String, Bloco>,
-               erros: MutableList<String>) {
-        when(this) {
-            is If -> {
-                cond.escopo(ctx, erros)
-                th.escopo(ctx, erros)
-                els.escopo(ctx, erros)
-            }
-            is Atrib -> {
-                if(ctx.containsKey(lval)) {
-                    escopo = ctx.get(lval)
-                } else {
-                    erros.add("variável $lval não definida na linha $lin")
-                }
-                rval.escopo(ctx, erros)
-            }
-            is Read ->
-                if(ctx.containsKey(lval)) {
-                        escopo = ctx.get(lval)
-                } else {
-                    erros.add("variável $lval não definida na linha $lin")
-                }
-            is Write -> exp.escopo(ctx, erros)
-            is Repeat -> {
-                val ctxcorpo = corpo.escopo(ctx, erros)
-                cond.escopo(ctxcorpo, erros)
-            }
-        }
-    }
-}
+interface Exp
+interface Cmd
 
 data class Tiny(val corpo: Bloco) {
     fun escopo(): List<String> {
         val erros = mutableListOf<String>()
         val ctx = emptyMap<String, Bloco>()
-        corpo.escopo(ctx, erros)
+        escopo(corpo, ctx, erros)
         return erros
     }
 }
@@ -82,22 +15,6 @@ data class Bloco(val vars: List<String>,
                  val cmds: MutableList<Cmd>, val lin: Int) {
     fun add(cmd: Cmd) {
         cmds.add(cmd)
-    }
-
-    fun escopo(ctx: Map<String, Bloco>,
-               erros: MutableList<String>): Map<String, Bloco> {
-        val vset = mutableSetOf<String>()
-        for(v in vars) {
-            if(vset.contains(v)) {
-                erros.add("variável $v duplicada na linha $lin")
-            } else vset.add(v)
-        }
-        val ctxbloco =
-                ctx.plus(vset.map { v -> Pair(v, this) })
-        for(cmd in cmds) {
-            cmd.escopo(ctxbloco, erros)
-        }
-        return ctxbloco
     }
 }
 
@@ -134,3 +51,81 @@ data class Num(val num: String, val lin: Int): Exp
 data class Var(val nome: String, val lin: Int): Exp {
     var escopo: Bloco? = null
 }
+
+fun escopo(no: Any, tabsimb: Map<String, Bloco>,
+           erros: MutableList<String>): Map<String, Bloco> {
+    when(no) {
+        is Var -> {
+            if(tabsimb.containsKey(no.nome)) {
+                no.escopo = tabsimb.get(no.nome)
+            } else {
+                erros.add("variável ${no.nome} não definida na linha ${no.lin}")
+            }
+        }
+        is Soma -> {
+            escopo(no.e1, tabsimb, erros)
+            escopo(no.e2, tabsimb, erros)
+        }
+        is Sub -> {
+            escopo(no.e1, tabsimb, erros)
+            escopo(no.e2, tabsimb, erros)
+        }
+        is Mult -> {
+            escopo(no.e1, tabsimb, erros)
+            escopo(no.e2, tabsimb, erros)
+        }
+        is Div -> {
+            escopo(no.e1, tabsimb, erros)
+            escopo(no.e2, tabsimb, erros)
+        }
+        is Menor -> {
+            escopo(no.e1, tabsimb, erros)
+            escopo(no.e2, tabsimb, erros)
+        }
+        is Igual -> {
+            escopo(no.e1, tabsimb, erros)
+            escopo(no.e2, tabsimb, erros)
+        }
+        is Num -> {}
+        is If -> {
+            escopo(no.cond, tabsimb, erros)
+            escopo(no.th, tabsimb, erros)
+            escopo(no.els, tabsimb, erros)
+        }
+        is Atrib -> {
+            if(tabsimb.containsKey(no.lval)) {
+                no.escopo = tabsimb.get(no.lval)
+            } else {
+                erros.add("variável ${no.lval} não definida na linha ${no.lin}")
+            }
+            escopo(no.rval, tabsimb, erros)
+        }
+        is Read ->
+            if(tabsimb.containsKey(no.lval)) {
+                no.escopo = tabsimb.get(no.lval)
+            } else {
+                erros.add("variável ${no.lval} não definida na linha ${no.lin}")
+            }
+        is Write -> escopo(no.exp, tabsimb, erros)
+        is Repeat -> {
+            val tabcorpo = escopo(no.corpo, tabsimb, erros)
+            escopo(no.cond, tabcorpo, erros)
+        }
+        is Bloco -> {
+            val vset = mutableSetOf<String>()
+            for(v in no.vars) {
+                if(vset.contains(v)) {
+                    erros.add("variável $v duplicada na linha ${no.lin}")
+                } else vset.add(v)
+            }
+            val tabbloco =
+                    tabsimb.plus(vset.map { v -> Pair(v, no) })
+            for(cmd in no.cmds) {
+                escopo(cmd, tabbloco, erros)
+            }
+            return tabbloco
+        }
+    }
+    return tabsimb
+}
+
