@@ -1,12 +1,10 @@
 import org.testng.annotations.Test
 
 object ScannerTest {
-    fun main(args: Array<String>) {
-        println("Hello, world!")
-    }
+
     @Test
     fun test1() {
-        val f = java.io.FileReader("factorial.java")
+        val f = java.io.FileReader("C:\\Matheus\\Materias\\Compiladores\\Trabalhos\\src\\factorial.java")
         val scan = ScannerMascarenhas(f)
         for (tok in scan.tokens())
             System.out.println(tok)
@@ -35,4 +33,7 @@ object ScannerTest {
         for (tok in scan.tokens())
             System.out.println(tok)
     }
+}
+fun main(args: Array<String>) {
+    ScannerTest.test1();
 }
