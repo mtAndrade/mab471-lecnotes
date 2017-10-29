@@ -1,6 +1,9 @@
 import org.testng.annotations.Test
 
 object ScannerTest {
+    fun main(args: Array<String>) {
+        println("Hello, world!")
+    }
     @Test
     fun test1() {
         val f = java.io.FileReader("factorial.java")
