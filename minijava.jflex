@@ -69,9 +69,6 @@ import java.io.IOException;
 //Reconhecendo numerais
 [0-9]+     { return new Token(Token.NUM, yytext(), yyline, yycolumn); }
 
-//Reconhecendo identificadores
-[a-zA-Z][a-zA-Z0-9_]*     { return new Token(Token.ID, yytext(), yyline, yycolumn); }
-
 // Exemplo de regra
 "boolean"      { return new Token(Token.BOOLEAN, yytext(), yyline, yycolumn); }
 
@@ -134,6 +131,9 @@ import java.io.IOException;
 
 //Reconhecimento "null"
 "null"         { return new Token(Token.NULL, yytext(), yyline, yycolumn);}
+
+//Reconhecendo identificadores
+[a-zA-Z][a-zA-Z0-9_]*     { return new Token(Token.ID, yytext(), yyline, yycolumn); }
 
 
 // Identificadores e numerais devem ser retornados com

@@ -4356,7 +4356,7 @@ public class Parser implements Tokens {
     };
 
 
-Scanner scan;
+ScannerMascarenhas scan;
 
 Token token;  // lookahead
 int tipo;     // tipo do lookahead
@@ -4364,7 +4364,7 @@ int tipo;     // tipo do lookahead
 public Prog saida; // workaround pro bug do tipo do parse()
 
 public Parser(java.io.Reader entrada) {
-  scan = new Scanner(entrada);
+  scan = new ScannerMascarenhas(entrada);
   proximo(); // inicializa o lookahead
 }
 
