@@ -28,7 +28,24 @@ interface Tokens {
     int TRUE = 24;
     int VOID = 25;
     int WHILE = 26;
-    int error = 27;
+    int ERROR = 27;
+    int EXCLAMATION = 33;
+    int LEFTPARENTESIS = 40;
+    int RIGHTPARENTESIS = 41;
+    int ASTERISK = 42;
+    int PLUS = 43;
+    int COMMA = 44;
+    int MINUS = 45;
+    int DOT = 46;
+    int FORWARDSLASH = 47;
+    int SEMICOLON = 59;
+    int SMALLER = 60;
+    int EQUAL = 61;
+    int RIGHTBRACKET = 91;
+    int LEFTBRACKET = 93;
+    int RIGHTKEY = 123;
+    int LEFTKEY = 125;
+
     // '!' (code=33)
     // '(' (code=40)
     // ')' (code=41)

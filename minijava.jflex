@@ -66,9 +66,6 @@ import java.io.IOException;
 //Comentários Multilinhas são ignorados
 [/][*][^*]*[*]+([^*/][^*]*[*]+)*[/]   { }
 
-//Reconhecendo numerais
-[0-9]+     { return new Token(Token.NUM, yytext(), yyline, yycolumn); }
-
 // Exemplo de regra
 "boolean"      { return new Token(Token.BOOLEAN, yytext(), yyline, yycolumn); }
 
@@ -134,6 +131,11 @@ import java.io.IOException;
 
 //Reconhecendo identificadores
 [a-zA-Z][a-zA-Z0-9_]*     { return new Token(Token.ID, yytext(), yyline, yycolumn); }
+
+//Reconhecendo numerais
+[0-9]+     { return new Token(Token.NUM, yytext(), yyline, yycolumn); }
+
+//Numeradores de pontuação
 
 
 // Identificadores e numerais devem ser retornados com
