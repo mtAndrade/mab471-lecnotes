@@ -17,7 +17,7 @@ import java.io.IOException;
 *
 */
 
-%class ScannerMascarenhas          // nome da classe do analisador
+%class Scanner          // nome da classe do analisador
 %public                 // classe deve ser pública
 %line                   // guarde número da linha em yyline
 %column                 // guarde número da coluna em yycolumn
@@ -28,7 +28,7 @@ import java.io.IOException;
 // do analisador
 %{ 
 
-	public ScannerMascarenhas() { }
+	public Scanner() { }
 
 	public void input(String input) {
 	    // inicializa entrada pro analisador
@@ -136,11 +136,26 @@ import java.io.IOException;
 [0-9]+     { return new Token(Token.NUM, yytext(), yyline, yycolumn); }
 
 //Numeradores de pontuação
+"!" { return new Token(Token.NEG, yytext(), yyline, yycolumn); }
+"&&" { return new Token(Token.AND, yytext(), yyline, yycolumn); }
+"(" { return new Token(Token.LEFTPARENTESIS, yytext(), yyline, yycolumn); }
+")" { return new Token(Token.RIGHTPARENTESIS, yytext(), yyline, yycolumn); }
+"*" { return new Token(Token.ASTERISK, yytext(), yyline, yycolumn); }
+"+" { return new Token(Token.PLUS, yytext(), yyline, yycolumn); }
+"," { return new Token(Token.COMMA, yytext(), yyline, yycolumn); }
+"-" { return new Token(Token.MINUS, yytext(), yyline, yycolumn); }
+"." { return new Token(Token.DOT, yytext(), yyline, yycolumn); }
+"/" { return new Token(Token.FORWARDSLASH, yytext(), yyline, yycolumn); }
+";" { return new Token(Token.SEMICOLON, yytext(), yyline, yycolumn); }
+"<" { return new Token(Token.SMALLER, yytext(), yyline, yycolumn); }
+"==" { return new Token(Token.EQ, yytext(), yyline, yycolumn); }
+"!=" { return new Token(Token.NEQ, yytext(), yyline, yycolumn); }
+"=" { return new Token(Token.ATTRIBUTION, yytext(), yyline, yycolumn); }
+"]" { return new Token(Token.RIGHTBRACKET, yytext(), yyline, yycolumn); }
+"[" { return new Token(Token.LEFTBRACKET, yytext(), yyline, yycolumn); }
+"}" { return new Token(Token.RIGHTKEY, yytext(), yyline, yycolumn); }
+"{" { return new Token(Token.LEFTKEY, yytext(), yyline, yycolumn); }
 
-
-// Identificadores e numerais devem ser retornados com
-// return new Token(Token.ID, yytext(), yyline, yycolumn)
-// e return new Token(Token.NUM, yytext(), yyline, yycolumn)
 
 // Regra para EOF
 <<EOF>>      { return new Token(Token.EOF, "<<EOF>>", yyline, yycolumn); }
