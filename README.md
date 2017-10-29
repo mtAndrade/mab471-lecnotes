@@ -11,10 +11,10 @@ Vocês devem usar a classe Token para retornar os tokens necessários.
 
 Bolar uma estratégia de testes para o analisador léxico também
 é responsabilidade de vocês. Para facilitar estou fornecendo o
-código Java do meu analisador (Scanner.java), que vocês podem
+código Java do meu analisador (ScannerMascarenhas.java), que vocês podem
 executar em casos de teste e comparar a saída dele com o do
 seu analisador. Nem tentem fazer "engenharia reversa" do
-Scanner.java para chegar na especificação, vai ser um esforço
+ScannerMascarenhas.java para chegar na especificação, vai ser um esforço
 jogado fora.
 
 O arquivo `testscanner.kt` contém alguns testes não

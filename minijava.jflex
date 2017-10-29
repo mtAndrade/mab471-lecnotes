@@ -17,7 +17,7 @@ import java.io.IOException;
 *
 */
 
-%class Scanner          // nome da classe do analisador
+%class ScannerMascarenhas          // nome da classe do analisador
 %public                 // classe deve ser pública
 %line                   // guarde número da linha em yyline
 %column                 // guarde número da coluna em yycolumn
@@ -28,7 +28,7 @@ import java.io.IOException;
 // do analisador
 %{ 
 
-	public Scanner() { }
+	public ScannerMascarenhas() { }
 
 	public void input(String input) {
 	    // inicializa entrada pro analisador
