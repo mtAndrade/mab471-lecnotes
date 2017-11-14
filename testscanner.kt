@@ -5,7 +5,8 @@ object ScannerTest {
     @Test
     fun test1() {
         val f = java.io.FileReader("C:\\Matheus\\Materias\\Compiladores\\Trabalhos\\src\\factorial.java")
-        val scan = ScannerMascarenhas(f)
+        val scanM   = ScannerMascarenhas(f)
+        val scan    = Scanner(f)
         for (tok in scan.tokens())
             System.out.println(tok)
     }

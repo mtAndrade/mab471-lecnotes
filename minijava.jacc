@@ -25,6 +25,13 @@
 %type <Exp> exp pexp
 
 /* TODO: classes de prioridade */
+%left AND
+%left '<'
+%left '+' '-'
+%left '*'
+%left NEG
+%left '!'
+
 
 %%
 
