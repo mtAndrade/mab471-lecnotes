@@ -149,7 +149,7 @@ import java.io.IOException;
 ";"  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
 "<"  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
 "==" { return new Token(Tokens.EQ, yytext(), yyline, yycolumn); }
-"!=" { return new Token(Tokens.NEQ.charAt(0), yytext(), yyline, yycolumn); }
+"!=" { return new Token(Tokens.NEQ, yytext(), yyline, yycolumn); }
 "="  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
 "]"  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
 "["  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
