@@ -136,25 +136,25 @@ import java.io.IOException;
 [0-9]+     { return new Token(Token.NUM, yytext(), yyline, yycolumn); }
 
 //Numeradores de pontuação
-"!" { return new Token(Token.NEG, yytext(), yyline, yycolumn); }
-"&&" { return new Token(Token.AND, yytext(), yyline, yycolumn); }
-"(" { return new Token(Token.LEFTPARENTESIS, yytext(), yyline, yycolumn); }
-")" { return new Token(Token.RIGHTPARENTESIS, yytext(), yyline, yycolumn); }
-"*" { return new Token(Token.ASTERISK, yytext(), yyline, yycolumn); }
-"+" { return new Token(Token.PLUS, yytext(), yyline, yycolumn); }
-"," { return new Token(Token.COMMA, yytext(), yyline, yycolumn); }
-"-" { return new Token(Token.MINUS, yytext(), yyline, yycolumn); }
-"." { return new Token(Token.DOT, yytext(), yyline, yycolumn); }
-"/" { return new Token(Token.FORWARDSLASH, yytext(), yyline, yycolumn); }
-";" { return new Token(Token.SEMICOLON, yytext(), yyline, yycolumn); }
-"<" { return new Token(Token.SMALLER, yytext(), yyline, yycolumn); }
-"==" { return new Token(Token.EQ, yytext(), yyline, yycolumn); }
-"!=" { return new Token(Token.NEQ, yytext(), yyline, yycolumn); }
-"=" { return new Token(Token.ATTRIBUTION, yytext(), yyline, yycolumn); }
-"]" { return new Token(Token.RIGHTBRACKET, yytext(), yyline, yycolumn); }
-"[" { return new Token(Token.LEFTBRACKET, yytext(), yyline, yycolumn); }
-"}" { return new Token(Token.RIGHTKEY, yytext(), yyline, yycolumn); }
-"{" { return new Token(Token.LEFTKEY, yytext(), yyline, yycolumn); }
+"!"  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
+"&&" { return new Token(Tokens.AND, yytext(), yyline, yycolumn); }
+"("  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
+")"  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
+"*"  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
+"+"  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
+","  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
+"-"  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
+"."  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
+"/"  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
+";"  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
+"<"  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
+"==" { return new Token(Tokens.EQ, yytext(), yyline, yycolumn); }
+"!=" { return new Token(Tokens.NEQ.charAt(0), yytext(), yyline, yycolumn); }
+"="  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
+"]"  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
+"["  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
+"}"  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
+"{"  { return new Token(yytext().charAt(0), yytext(), yyline, yycolumn); }
 
 
 // Regra para EOF
