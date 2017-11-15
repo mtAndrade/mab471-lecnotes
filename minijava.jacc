@@ -31,6 +31,8 @@
 %left '*'
 %left NEG
 %left '!'
+%nonassoc IFX
+%nonassoc ELSE
 
 
 %%
@@ -83,7 +85,7 @@ cmds : cmd cmds  { $2.add(0, $1); $$ = $2; }
 
 /* TODO: não-terminal cmd, regra CMD na gramática, gera nós Bloco, If, While, Atrib, AtribVetor e Println da AST */
 cmd	: '{' cmds '}'  				{ $$ = new Bloco($2);}
-	| IF '(' exp ')' cmd            { $$ = new If($3,$5, null,$1.getLin());}
+	| IF '(' exp ')' cmd %prec IFX  { $$ = new If($3,$5, null,$1.getLin());}
 	| IF '(' exp ')' cmd ELSE cmd	{ $$ = new If($3,$5,$7,$1.getLin());}
 	| WHILE '(' exp ')' cmd			{ $$ = new While($3,$5, $1.getLin());}
 	| PRINTLN '(' exp ')' ';'		{ $$ = new Println($3, $1.getLin());}
