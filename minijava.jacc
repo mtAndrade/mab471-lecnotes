@@ -1,4 +1,4 @@
-﻿
+
 %class Parser
 %interface Tokens
 
@@ -6,7 +6,7 @@
 %token <Token> VOID MAIN STRING RETURN INT ELSE
 %token <Token> PRINTLN LENGTH TRUE FALSE THIS NULL
 %token <Token> NEW EQ NEQ AND '/' '*' '<' '!' '['
-%token <Token> ID NUM IF WHILE '.' '=' '+' '-' 
+%token <Token> ID NUM IF WHILE '.' '=' '+' '-'
 
 %next proximo()
 %get tipo
@@ -23,9 +23,9 @@
 %type <Cmd> cmd
 %type <String> tipo
 %type <Exp> exp pexp
-
 /* TODO: classes de prioridade */
 %left AND
+%left NEQ
 %left '<'
 %left '+' '-'
 %left '*'
@@ -44,6 +44,9 @@ classes : classes classe   { $1.add($2); $$ = $1; }
         ;
 
 /* TODO: não-terminal classe, gera nó Classe da AST, regra CLASSE na gramática */
+classe  : CLASS ID EXTENDS ID '{' vars metodos '}'    { $$ = new Classe($2.getTexto(),$4.getTexto(),$6,$7, $1.getLin());}
+	    | CLASS ID '{' vars metodos '}'               { $$ = new Classe($2.getTexto(),"Object",$4,$5, $1.getLin());}
+	    ;
 
 vars : vars var   { $1.add($2); $$ = $1; }
      |            { $$ = new java.util.ArrayList<Var>(); }
@@ -53,6 +56,9 @@ var : tipo ID ';'  { $$ = new Var($1, $2.getTexto(), $2.getLin()); }
     ; 
 
 /* TODO: não-terminal metodos, lista de 0 ou mais métodos, regra {METODO} */
+metodos : metodos metodo   { $1.add($2); $$ = $1; }
+        |                  { $$ = new java.util.ArrayList<Metodo>(); }
+        ;
 
 metodo : PUBLIC tipo ID '(' ')' '{' vars cmds RETURN exp ';' '}'
                 { $$ = new Metodo($2, $3.getTexto(), new java.util.ArrayList<Var>(), $7, $8, $10, $3.getLin()); }
@@ -71,14 +77,20 @@ tipo : INT '[' ']'  { $$ = "int[]"; }
      | ID           { $$ = $1.getTexto(); }
      ;
 
-cmds : cmd cmds  { $2.add(0, $1); $$ = $2; } 
+cmds : cmd cmds  { $2.add(0, $1); $$ = $2; }
      |           { $$ = new java.util.ArrayList<Cmd>(); }
      ;
 
-/* TODO: não-terminal cmd, regra CMD na gramática, gera nós
-   Bloco, If, While, Atrib, AtribVetor e Println
-   da AST */
-
+/* TODO: não-terminal cmd, regra CMD na gramática, gera nós Bloco, If, While, Atrib, AtribVetor e Println da AST */
+cmd	: '{' cmds '}'  				{ $$ = new Bloco($2);}
+	| IF '(' exp ')' cmd            { $$ = new If($3,$5, null,$1.getLin());}
+	| IF '(' exp ')' cmd ELSE cmd	{ $$ = new If($3,$5,$7,$1.getLin());}
+	| WHILE '(' exp ')' cmd			{ $$ = new While($3,$5, $1.getLin());}
+	| PRINTLN '(' exp ')' ';'		{ $$ = new Println($3, $1.getLin());}
+	| ID '=' exp ';'				{ $$ = new Atrib($1.getTexto(),$3,$1.getLin());}
+	| ID '[' exp ']' '=' exp ';'	{ $$ = new AtribVetor($1.getTexto(),$3,$6,$1.getLin());}
+    ;
+		
 exp : exp '+' exp  { $$ = new Soma($1, $3, $2.getLin()); }
     | exp '-' exp  { $$ = new Sub($1, $3, $2.getLin()); }
     | exp '*' exp  { $$ = new Mult($1, $3, $2.getLin()); }
@@ -90,9 +102,8 @@ exp : exp '+' exp  { $$ = new Soma($1, $3, $2.getLin()); }
     | '-' exp %prec NEG { $$ = new Neg($2, $1.getLin()); }
     | '!' exp      { $$ = new Nao($2, $1.getLin()); }
     | TRUE         { $$ = True.INSTANCE; }
-    | FALSE        { $$ = Fale.INSTANCE; }
+    | FALSE        { $$ = False.INSTANCE; }
     | NUM          { $$ = new Num($1.getTexto()); }
-    | NULL         { $$ = new Null(); }
     | NEW INT '[' exp ']' { $$ = new Vetor($4, $1.getLin()); }
     | pexp '.' LENGTH     { $$ = new Length($1, $2.getLin()); }
     | pexp '[' exp ']'    { $$ = new Indexa($1, $3, $2.getLin()); }
@@ -116,7 +127,7 @@ exps : exps ',' exp   { $1.add($3); $$ = $1; }
      
 %%
 
-ScannerMascarenhas scan;
+Scanner scan;
 
 Token token;  // lookahead
 int tipo;     // tipo do lookahead
@@ -124,7 +135,7 @@ int tipo;     // tipo do lookahead
 public Prog saida; // workaround pro bug do tipo do parse()
 
 public Parser(java.io.Reader entrada) {
-  scan = new ScannerMascarenhas(entrada);
+  scan = new Scanner(entrada);
   proximo(); // inicializa o lookahead
 }
 

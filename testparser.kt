@@ -3,7 +3,7 @@ import org.testng.annotations.Test
 object ParserTest {
     @Test
     fun test1() {
-        val f = java.io.FileReader("factorial.java")
+        val f = java.io.FileReader("C:\\Matheus\\Materias\\Compiladores\\Trabalhos\\src\\factorial.java")
         var parser = Parser(f)
         parser.parse()
         val saida = parser.saida?.toString()
@@ -16,7 +16,7 @@ object ParserTest {
 
     @Test
     fun test2() {
-        val f = java.io.FileReader("binarysearch.java")
+        val f = java.io.FileReader("C:\\Matheus\\Materias\\Compiladores\\Trabalhos\\src\\binarysearch.java")
         var parser = Parser(f)
         parser.parse()
         val saida = parser.saida.toString()
@@ -52,4 +52,9 @@ object ParserTest {
         val saida2 = parser.saida.toString()
         println(saida == saida2)
     }
+}
+
+
+fun main(args: Array<String>) {
+    ParserTest.test1();
 }
